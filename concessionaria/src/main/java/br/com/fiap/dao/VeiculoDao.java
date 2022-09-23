@@ -14,8 +14,8 @@ import br.com.fiap.model.Veiculo;
 public class VeiculoDao {
 
     private String url = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-    private String user = "pf1389";
-    private String password = "fiaPf21";
+    private String user = "";
+    private String password = "";
 
 
 
