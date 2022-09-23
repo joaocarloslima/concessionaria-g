@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fiap.PrimaryController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fiap.controller.PrimaryController">
   <tabs>
     <Tab text="Cadastro">
          <content>
@@ -101,6 +101,7 @@
                     <items>
                       <Button mnemonicParsing="false" onAction="#ordenarPorAno" text="Listar por Ano" />
                         <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#ordenarPorPreco" text="Listar por Preço" />
+                        <Button mnemonicParsing="false" onAction="#carregarDados" text="Mostrar Todos" />
                     </items>
                   </ToolBar>
                </top>
