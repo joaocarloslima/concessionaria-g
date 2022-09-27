@@ -120,22 +120,22 @@
                <top>
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextField promptText="nome">
+                        <TextField fx:id="textFieldNome" promptText="nome">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField layoutX="10.0" layoutY="10.0" promptText="email">
+                        <TextField fx:id="textFieldEmail" layoutX="10.0" layoutY="10.0" promptText="email">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField layoutX="159.0" layoutY="10.0" promptText="telefone">
+                        <TextField fx:id="textFieldTelefone" layoutX="159.0" layoutY="10.0" promptText="telefone">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button defaultButton="true" mnemonicParsing="false" text="Salvar">
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#salvarCliente" text="Salvar">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -144,11 +144,11 @@
                   </HBox>
                </top>
                <center>
-                  <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <TableView fx:id="tableViewClientes" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Nome" />
-                      <TableColumn prefWidth="75.0" text="E-mail" />
-                        <TableColumn prefWidth="75.0" text="Telefone" />
+                      <TableColumn fx:id="colunaNome" prefWidth="75.0" text="Nome" />
+                      <TableColumn fx:id="colunaEmail" prefWidth="75.0" text="E-mail" />
+                        <TableColumn fx:id="colunaTelefone" prefWidth="75.0" text="Telefone" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

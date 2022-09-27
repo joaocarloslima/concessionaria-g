@@ -1,22 +1,27 @@
 package br.com.fiap.controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import br.com.fiap.dao.ClienteDao;
 import br.com.fiap.dao.VeiculoDao;
+import br.com.fiap.model.Cliente;
 import br.com.fiap.model.Veiculo;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
-public class PrimaryController {
+public class PrimaryController implements Initializable {
 
     @FXML private TextField textFieldMarca;
     @FXML private TextField textFieldModelo;
@@ -25,6 +30,14 @@ public class PrimaryController {
     @FXML private TextField textFieldAno;
 
     @FXML private ListView<Veiculo> listView;
+
+    @FXML private TextField textFieldNome;
+    @FXML private TextField textFieldEmail;
+    @FXML private TextField textFieldTelefone;
+    @FXML private TableView<Cliente> tableViewClientes;
+    @FXML private TableColumn<Cliente, String> colunaNome;
+    @FXML private TableColumn<Cliente, String> colunaEmail;
+    @FXML private TableColumn<Cliente, String> colunaTelefone;
 
     public void salvar(){
         var veiculo = carregarVeiculoDoFormulario();
@@ -35,7 +48,21 @@ public class PrimaryController {
             limparFormulario();
         } catch (SQLException e) {
             mostrarAlerta("Erro de conexao com BD " + e.getMessage());
+        } catch (IOException e) {
+            mostrarAlerta("Erro ao obter propriedades de conexão. Verifique arquivo application.properties. " + e.getMessage());
         }
+    }
+
+    public void salvarCliente(){
+        //try{
+            var cliente = carregarClienteDoFormulario();
+        //    var dao = new ClienteDao();
+        //    dao.inserir(cliente);
+            mostrarAlerta("Cliente cadastrado com sucesso.");
+            tableViewClientes.getItems().add(cliente);
+        //}catch(SQLException e){
+        //    mostrarAlerta("Erro ao cadastrar cliente. " + e.getMessage());
+        //}
     }
 
     private void atualizarListView(List<Veiculo> lista) {
@@ -67,6 +94,14 @@ public class PrimaryController {
         return new Veiculo(marca, modelo, placa, preco, ano);
     }
 
+    private Cliente carregarClienteDoFormulario(){
+        return new Cliente(
+            textFieldNome.getText(), 
+            textFieldEmail.getText(), 
+            textFieldTelefone.getText()
+        );
+    }
+
     public void ordenarPorPreco(){
         // lista.sort((o1, o2) -> Double.compare(o1.getPreco(), o2.getPreco()));
     }
@@ -80,7 +115,17 @@ public class PrimaryController {
             atualizarListView(new VeiculoDao().buscarTodos());
         } catch (SQLException e) {
             mostrarAlerta("Erro de conexao com BD " + e.getMessage());
+        } catch (IOException e) {
+            mostrarAlerta("Erro ao obter propriedades de conexão. Verifique arquivo application.properties. " + e.getMessage());
         }
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+
+        colunaNome.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().nome()));
+        colunaEmail.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().email()));
+        colunaTelefone.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().telefone()));
     }
     
 }

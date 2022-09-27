@@ -1,5 +1,6 @@
 package br.com.fiap.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,22 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fiap.model.Veiculo;
+import br.com.fiap.util.ConnectionFactory;
 
 public class VeiculoDao {
 
-    private String url = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-    private String user = "";
-    private String password = "";
-
-
-
-
-
-
-
-    
-    public void inserir(Veiculo veiculo) throws SQLException {
-            Connection con = DriverManager.getConnection(url, user, password);
+    public void inserir(Veiculo veiculo) throws SQLException, IOException {
+            Connection con = ConnectionFactory.getConnection();
             
             String sql = "INSERT INTO DDD_CONCESSIONARIA_TB_VEICULOS (id, marca, modelo, placa, preco, ano) "+
             "VALUES (SEQ_VEICULO.nextVal, ?, ?, ?, ?, ?)";
@@ -42,10 +33,10 @@ public class VeiculoDao {
             con.close();
     }
 
-    public List<Veiculo> buscarTodos() throws SQLException {
+    public List<Veiculo> buscarTodos() throws SQLException, IOException {
         List<Veiculo> lista = new ArrayList<>();
         
-        Connection con = DriverManager.getConnection(url, user, password);
+        Connection con = ConnectionFactory.getConnection();
         Statement stmt = con.createStatement();
         String sql = "SELECT * FROM DDD_CONCESSIONARIA_TB_VEICULOS";
         ResultSet rs = stmt.executeQuery(sql);
